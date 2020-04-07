@@ -27,7 +27,7 @@ public class Card {
         return value;
     }
     
-    public String getSuitAsString() {
+    public String getSuitAsString(int suit) {
         switch ( suit ) {
            case SPADES:   return "Spades";
            case HEARTS:   return "Hearts";
@@ -37,7 +37,7 @@ public class Card {
         }
     }
     
-    public String getValueAsString() {
+    public String getValueAsString(int value) {
         switch ( value ) {
            case 1:   return "Ace";
            case 2:   return "2";
@@ -57,6 +57,6 @@ public class Card {
     }
     
     public String toString() {
-        return getValueAsString() + " of " + getSuitAsString();
+        return getValueAsString(value) + " of " + getSuitAsString(suit);
     }
 }

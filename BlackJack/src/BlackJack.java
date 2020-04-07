@@ -22,7 +22,7 @@ public class BlackJack {
 			} while (bet < 0 || bet > money);
 			if (bet == 0)
 				break;
-			winner = playBlackjack();
+			winner = playGame();
 			if (winner)
 				money = money + bet;
 			else
@@ -38,10 +38,10 @@ public class BlackJack {
 		System.out.println("You leave with $" + money + '.');
 	}
 
-	static boolean playBlackjack() {
+	public static boolean playGame() {
 		Deck deck = new Deck();
-		Hand dealerHand = new Hand();
-		Hand userHand = new Hand();
+		BlackJackHand dealerHand = new BlackJackHand();
+		BlackJackHand userHand = new BlackJackHand();
 
 		deck.shuffle();
 		dealerHand.addCard(deck.dealCard());
@@ -49,7 +49,7 @@ public class BlackJack {
 		userHand.addCard(deck.dealCard());
 		userHand.addCard(deck.dealCard());
 
-		if (dealerHand.getBlackjackValue() == 21) {
+		if (dealerHand.getCardCount() == 21) {
 			System.out.println("Dealer has the " + dealerHand.getCard(0) + " and the " + dealerHand.getCard(1) + ".");
 			System.out.println("User has the " + userHand.getCard(0) + " and the " + userHand.getCard(1) + ".");
 			System.out.println();
@@ -57,7 +57,7 @@ public class BlackJack {
 			return false;
 		}
 
-		if (userHand.getBlackjackValue() == 21) {
+		if (userHand.getCardCount() == 21) {
 			System.out.println("Dealer has the " + dealerHand.getCard(0) + " and the " + dealerHand.getCard(1) + ".");
 			System.out.println("User has the " + userHand.getCard(0) + " and the " + userHand.getCard(1) + ".");
 			System.out.println();
@@ -71,7 +71,7 @@ public class BlackJack {
 			System.out.println("Your cards are:");
 			for (int i = 0; i < userHand.getCardCount(); i++)
 				System.out.println("    " + userHand.getCard(i));
-			System.out.println("Your total is " + userHand.getBlackjackValue());
+			System.out.println("Your total is " + userHand.getCardCount());
 			System.out.println();
 			System.out.println("Dealer is showing the " + dealerHand.getCard(0));
 			System.out.println();
@@ -90,8 +90,8 @@ public class BlackJack {
 				System.out.println();
 				System.out.println("User hits.");
 				System.out.println("Your card is the " + newCard);
-				System.out.println("Your total is now " + userHand.getBlackjackValue());
-				if (userHand.getBlackjackValue() > 21) {
+				System.out.println("Your total is now " + userHand.getCardCount());
+				if (userHand.getCardCount() > 21) {
 					System.out.println();
 					System.out.println("You busted by going over 21.  You lose.");
 					System.out.println("Dealer's other card was the " + dealerHand.getCard(1));
@@ -105,29 +105,29 @@ public class BlackJack {
 		System.out.println("Dealer's cards are");
 		System.out.println("    " + dealerHand.getCard(0));
 		System.out.println("    " + dealerHand.getCard(1));
-		while (dealerHand.getBlackjackValue() <= 16) {
+		while (dealerHand.getCardCount() <= 16) {
 			Card newCard = deck.dealCard();
 			System.out.println("Dealer hits and gets the " + newCard);
 			dealerHand.addCard(newCard);
-			if (dealerHand.getBlackjackValue() > 21) {
+			if (dealerHand.getCardCount() > 21) {
 				System.out.println();
 				System.out.println("Dealer busted by going over 21.  You win.");
 				return true;
 			}
 		}
-		System.out.println("Dealer's total is " + dealerHand.getBlackjackValue());
+		System.out.println("Dealer's total is " + dealerHand.getCardCount());
 
 		System.out.println();
-		if (dealerHand.getBlackjackValue() == userHand.getBlackjackValue()) {
+		if (dealerHand.getCardCount() == userHand.getCardCount()) {
 			System.out.println("Dealer wins on a tie.  You lose.");
 			return false;
-		} else if (dealerHand.getBlackjackValue() > userHand.getBlackjackValue()) {
-			System.out.println("Dealer wins, " + dealerHand.getBlackjackValue() + " points to "
-					+ userHand.getBlackjackValue() + ".");
+		} else if (dealerHand.getCardCount() > userHand.getCardCount()) {
+			System.out.println("Dealer wins, " + dealerHand.getCardCount() + " points to "
+					+ userHand.getCardCount() + ".");
 			return false;
 		} else {
 			System.out.println(
-					"You win, " + userHand.getBlackjackValue() + " points to " + dealerHand.getBlackjackValue() + ".");
+					"You win, " + userHand.getCardCount() + " points to " + dealerHand.getCardCount() + ".");
 			return true;
 		}
 	}
