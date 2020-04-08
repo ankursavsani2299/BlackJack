@@ -1,3 +1,5 @@
+package BlackJack;
+
 public class Card {
 
     public final static int SPADES = 0,
@@ -27,7 +29,7 @@ public class Card {
         return value;
     }
     
-    public String getSuitAsString(int suit) {
+    public static String getSuitAsString(int suit) {
         switch ( suit ) {
            case SPADES:   return "Spades";
            case HEARTS:   return "Hearts";
@@ -37,7 +39,7 @@ public class Card {
         }
     }
     
-    public String getValueAsString(int value) {
+    public static String getValueAsString(int value) {
         switch ( value ) {
            case 1:   return "Ace";
            case 2:   return "2";
